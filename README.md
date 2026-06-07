@@ -200,7 +200,7 @@ button {
     <div class="ribbon-h"></div>
 </div></div><!-- 🎬 CINEMATIC VIDEO SCREEN --><div id="videoScreen" class="video-wrapper">
     <video id="myVideo" controls>
-        <source src="https://github.com/hardikscricketshorts-cmyk/BEST-BESTFRIEND/blob/a4643f26ff58ff3300c65e0bb7584c0d0a3254cf/VID-20251019-WA0033.mp4" type="video/mp4">
+        <source src="https://github.com/user-attachments/assets/e93d880e-3bb7-4949-82a2-38448beb1d39.mp4" type="video/mp4">
     </video>
 </div><script>
 function nextPage(p){
