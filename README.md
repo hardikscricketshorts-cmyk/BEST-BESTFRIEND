@@ -217,9 +217,8 @@ button:hover { transform: scale(1.1); }
 </div>
 </div><!-- VIDEO SCREEN --><div id="videoScreen" class="video-wrapper">
     <video id="myVideo" controls playsinline>
-        <source src="https://github.com/user-attachments/assets/57ad0fab-8be8-4608-adf6-0bae52394f14" type="video/mp4">
-    </video>
-</div><script>
+        "https://github.com/user-attachments/assets/57ad0fab-8be8-4608-adf6-0bae52394f14" type="video/mp4">
+    
 function nextPage(p){
     document.querySelectorAll(".page").forEach(el=>el.classList.remove("active"));
     document.getElementById("page"+p).classList.add("active");
