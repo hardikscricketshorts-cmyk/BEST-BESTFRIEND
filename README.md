@@ -215,8 +215,8 @@ button:hover { transform: scale(1.1); }
     <div class="ribbon-v"></div>
     <div class="ribbon-h"></div>
 </div>
-</div><!-- VIDEO SCREEN --><div id="videoScreen" class="video-wrapper">
-    <video id="myVideo" controls playsinline>
+</div><!-
+    <video id=o" controls playsinline>
         "https://github.com/user-attachments/assets/57ad0fab-8be8-4608-adf6-0bae52394f14" type="video/mp4">
     
 function nextPage(p){
