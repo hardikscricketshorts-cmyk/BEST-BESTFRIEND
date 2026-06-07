@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>💖</title>
+<title>For You 💛</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body {
     margin: 0;
-    font-family: 'Pacifico', cursive;
-    background: linear-gradient(135deg, #ff4da6, #8a00ff);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff7eb3, #8e44ad);
+    color: #ffe66d;
     overflow: hidden;
-    color: yellow;
 }
 
+/* Pages */
 .page {
     display: none;
     height: 100vh;
@@ -23,205 +24,215 @@ body {
     flex-direction: column;
     text-align: center;
     padding: 20px;
-    animation: fade 1s;
+    animation: fade 0.8s ease;
 }
 .active { display: flex; }
 
 @keyframes fade {
-    from {opacity:0; transform: scale(0.8);}
-    to {opacity:1; transform: scale(1);}
+    from {opacity:0; transform: translateY(20px);}
+    to {opacity:1; transform: translateY(0);}
 }
 
-.intro {
-    font-size: 28px;
+/* Intro */
+.name {
+    font-size: 32px;
+    font-weight: 600;
     animation: glow 2s infinite alternate;
 }
 @keyframes glow {
     from { text-shadow: 0 0 10px pink; }
-    to { text-shadow: 0 0 30px white; }
+    to { text-shadow: 0 0 25px white; }
 }
 
+/* Input */
 input, button {
     padding: 10px;
-    border-radius: 20px;
+    border-radius: 25px;
     border: none;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 button {
-    background: pink;
+    background: #ffd6e0;
     cursor: pointer;
 }
 
 /* Gift */
 .gift {
-    width: 150px;
-    height: 120px;
-    background: red;
-    position: relative;
+    width: 140px;
+    height: 100px;
+    background: #ff4d6d;
     border-radius: 10px;
+    position: relative;
     cursor: pointer;
 }
 
 .lid {
     position: absolute;
     width: 100%;
-    height: 40px;
-    background: darkred;
-    top: -40px;
-    transition: 0.6s;
+    height: 35px;
+    background: #c9184a;
+    top: -35px;
+    transition: 0.6s ease;
 }
 
-.ribbonV {
-    width: 20px;
-    height: 100%;
-    background: gold;
+.ribbon {
     position: absolute;
-    left: 65px;
-}
-
-.ribbonH {
-    height: 20px;
-    width: 100%;
     background: gold;
-    position: absolute;
-    top: 50px;
 }
+.ribbon.v { width: 18px; height: 100%; left: 60px; }
+.ribbon.h { height: 18px; width: 100%; top: 40px; }
 
 .open .lid {
-    transform: translateY(-120px) rotate(-25deg);
+    transform: translateY(-90px) rotate(-15deg);
 }
 
+/* Message */
 .message {
     display: none;
-    margin-top: 20px;
     max-width: 600px;
-    text-shadow: 0 0 10px white;
+    margin-top: 20px;
+    line-height: 1.6;
 }
 
-.big {
-    font-size: 26px;
+/* Final */
+.final {
+    font-size: 24px;
+    animation: glow 3s infinite alternate;
 }
 
-/* Confetti */
-.confetti {
-    position: fixed;
-    width: 8px;
-    height: 8px;
+/* Particles */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
     background: white;
-    animation: fall 2s linear forwards;
+    opacity: 0.5;
+    border-radius: 50%;
+    animation: float 8s linear infinite;
 }
-@keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
+@keyframes float {
+    to { transform: translateY(-120vh); opacity: 0;}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+<audio id="bgmusic" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
 </audio>
 
 <audio id="voice">
-<source src="voice.mp3">
+<source src="voice.mp3" type="audio/mp3">
 </audio>
 
 <!-- INTRO -->
 <div class="page active" id="intro">
-    <div class="intro">Sarvadnya 💛<br>You already know what this is…</div>
-    <button onclick="start()">Start 💫</button>
+    <div class="name">Sarvadnya 💛</div>
+    <div>You already know what this is…</div>
+    <button onclick="start()">Continue</button>
 </div>
 
 <!-- PASSWORD -->
-<div class="page" id="page1">
-    <h2>Enter Password 💝</h2>
+<div class="page" id="passPage">
+    <h3>Enter Password</h3>
     <input type="password" id="pass">
     <button onclick="checkPass()">Enter</button>
 </div>
 
-<!-- PAGE 2 -->
-<div class="page" id="page2">
+<!-- GIFT 1 -->
+<div class="page" id="p2">
     <div class="gift" onclick="openGift(1)">
         <div class="lid"></div>
-        <div class="ribbonV"></div>
-        <div class="ribbonH"></div>
+        <div class="ribbon v"></div>
+        <div class="ribbon h"></div>
     </div>
-    <div class="message" id="msg1"></div>
+    <div class="message" id="m1"></div>
 </div>
 
-<!-- PAGE 3 -->
-<div class="page" id="page3">
+<!-- CHAT PAGE -->
+<div class="page" id="chatPage">
+    <div>
+        “Then also i'll ask 😝”<br><br>
+        “What is today's date?”<br><br>
+        👉 Best Friends Day 💛
+    </div>
+    <button onclick="next('p3')">Next</button>
+</div>
+
+<!-- GIFT 2 -->
+<div class="page" id="p3">
     <div class="gift" onclick="openGift(2)">
         <div class="lid"></div>
-        <div class="ribbonV"></div>
-        <div class="ribbonH"></div>
+        <div class="ribbon v"></div>
+        <div class="ribbon h"></div>
     </div>
-    <div class="message" id="msg2"></div>
+    <div class="message" id="m2"></div>
 </div>
 
-<!-- PAGE 4 -->
-<div class="page" id="page4">
+<!-- FINAL -->
+<div class="page" id="finalPage">
     <div class="gift" onclick="openGift(3)">
         <div class="lid"></div>
-        <div class="ribbonV"></div>
-        <div class="ribbonH"></div>
+        <div class="ribbon v"></div>
+        <div class="ribbon h"></div>
     </div>
-    <div class="message big" id="msg3"></div>
+    <div class="message final" id="m3"></div>
+
     <button onclick="playVoice()">🎙️ Play Voice Note</button>
 </div>
 
 <script>
 function start(){
-    document.getElementById("music").play();
-    nextPage("page1");
+    document.getElementById("bgmusic").play();
+    next("passPage");
 }
 
-function nextPage(id){
-    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
+/* ✅ FIXED NEXT FUNCTION */
+function next(id){
+    let pages = document.querySelectorAll(".page");
+
+    pages.forEach(p => {
+        p.classList.remove("active");
+        p.style.display = "none";
+    });
+
+    let nextPage = document.getElementById(id);
+
+    if(nextPage){
+        nextPage.style.display = "flex";
+        setTimeout(()=>{
+            nextPage.classList.add("active");
+        }, 10);
+    }
 }
 
 function checkPass(){
-    let p=document.getElementById("pass").value;
-    if(p==="1103"){
-        nextPage("page2");
+    if(document.getElementById("pass").value==="1103"){
+        next("p2");
     } else alert("Wrong password 💔");
 }
 
-/* FIXED TYPEWRITER */
-function typeText(el, text, callback){
+/* TYPEWRITER */
+function type(el,text,callback){
     let i=0;
     el.style.display="block";
     el.innerHTML="";
 
-    let interval=setInterval(()=>{
+    let int=setInterval(()=>{
         el.innerHTML += text.charAt(i);
         i++;
         if(i >= text.length){
-            clearInterval(interval);
+            clearInterval(int);
             if(callback) callback();
         }
     },25);
 }
 
-/* CONFETTI */
-function explode(){
-    for(let i=0;i<40;i++){
-        let c=document.createElement("div");
-        c.className="confetti";
-        c.style.left=Math.random()*100+"vw";
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(),2000);
-    }
-}
-
-/* FIXED FLOW */
+/* FLOW */
 function openGift(n){
-    let messages=[
+    let texts=[
 `Sarvadnya 🥹💝 
 
 From the past one year, you've been more than just a best friend to me — you've been my comfort, my happiness, and someone I truly cherish.  
@@ -238,28 +249,36 @@ You mean a lot to me... more than words can say 😚🎀`,
 
     let gift=document.querySelectorAll(".gift")[n-1];
     gift.classList.add("open");
-    explode();
 
-    let msg=document.getElementById("msg"+n);
+    let el=document.getElementById("m"+n);
 
-    if(n===1){
-        typeText(msg, messages[0], ()=>{
-            setTimeout(()=>nextPage("page3"),1500);
+    if(n === 1){
+        type(el, texts[0], () => {
+            setTimeout(()=> next("chatPage"), 1500);
         });
     }
-    else if(n===2){
-        typeText(msg, messages[1], ()=>{
-            setTimeout(()=>nextPage("page4"),1500);
+    else if(n === 2){
+        type(el, texts[1], () => {
+            setTimeout(()=> next("finalPage"), 1500);
         });
     }
-    else if(n===3){
-        typeText(msg, messages[2]);
+    else if(n === 3){
+        type(el, texts[2]);
     }
 }
 
 function playVoice(){
     document.getElementById("voice").play();
 }
+
+/* Particles */
+setInterval(()=>{
+    let p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"vw";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),8000);
+},400);
 </script>
 
 </body>
