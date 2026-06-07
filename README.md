@@ -4,21 +4,17 @@
 <meta charset="UTF-8">
 <title>💖</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
 <style>
 body {
     margin: 0;
-    font-family: 'Pacifico', cursive;
+    font-family: cursive;
     background: linear-gradient(135deg, #ff4da6, #8a00ff);
     color: yellow;
     text-align: center;
 }
 
-/* Pages */
 .page {
     display: none;
-    height: 100vh;
     padding-top: 100px;
 }
 
@@ -34,7 +30,6 @@ button {
     cursor: pointer;
 }
 
-/* Gift */
 .gift {
     width: 150px;
     height: 120px;
@@ -44,50 +39,47 @@ button {
     cursor: pointer;
 }
 
-/* Message */
 .message {
     margin-top: 20px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
+
+/* hidden buttons */
+.nextBtn {
+    display: none;
+}
 </style>
 </head>
 
 <body>
 
-<audio id="music" loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
-
-<!-- INTRO -->
-<div class="page" id="intro" style="display:block;">
-    <h2>You already know what this is… 💖</h2>
-    <button onclick="start()">Start</button>
+<div id="intro" class="page" style="display:block;">
+    <h2>You already know what this is 💖</h2>
+    <button onclick="showPage('page1')">Start</button>
 </div>
 
-<!-- PASSWORD -->
-<div class="page" id="page1">
+<div id="page1" class="page">
     <h2>Enter Password 💝</h2>
     <input type="password" id="pass">
     <br>
     <button onclick="checkPass()">Enter</button>
 </div>
 
-<!-- PAGE 2 -->
-<div class="page" id="page2">
+<div id="page2" class="page">
     <div class="gift" onclick="openGift(1)"></div>
     <div class="message" id="msg1"></div>
+    <button class="nextBtn" id="next1" onclick="showPage('page3')">Next 💕</button>
 </div>
 
-<!-- PAGE 3 -->
-<div class="page" id="page3">
+<div id="page3" class="page">
     <div class="gift" onclick="openGift(2)"></div>
     <div class="message" id="msg2"></div>
+    <button class="nextBtn" id="next2" onclick="showPage('page4')">Next 💕</button>
 </div>
 
-<!-- PAGE 4 -->
-<div class="page" id="page4">
+<div id="page4" class="page">
     <div class="gift" onclick="openGift(3)"></div>
     <div class="message" id="msg3"></div>
 </div>
@@ -98,11 +90,6 @@ function showPage(id){
     document.getElementById(id).style.display="block";
 }
 
-function start(){
-    document.getElementById("music").play();
-    showPage("page1");
-}
-
 function checkPass(){
     if(document.getElementById("pass").value === "1103"){
         showPage("page2");
@@ -111,7 +98,6 @@ function checkPass(){
     }
 }
 
-/* Typewriter */
 function typeText(el, text, callback){
     let i = 0;
     el.innerHTML = "";
@@ -125,14 +111,13 @@ function typeText(el, text, callback){
     }, 25);
 }
 
-/* Open Gift */
 function openGift(n){
     let texts = [
 `Sarvadnya 🥹💝 
 
 From the past one year, you've been more than just a best friend to me — you've been my comfort, my happiness, and someone I truly cherish.  
 You're incredibly talented and intelligent, and honestly, one of the most amazing people I know.  
-The way you understand me means everything to me. 💖`,
+The way you understand me means everything to me 💖`,
 
 `Sobt celebrate krayla milala nahi, tri a small wish🥹`,
 
@@ -142,14 +127,11 @@ The way you understand me means everything to me. 💖`,
     let el = document.getElementById("msg"+n);
 
     typeText(el, texts[n-1], function(){
-        if(n < 3){
-            let btn = document.createElement("button");
-            btn.innerText = "Next 💕";
-            btn.onclick = function(){
-                showPage("page"+(n+1));
-            };
-            el.appendChild(document.createElement("br"));
-            el.appendChild(btn);
+        if(n === 1){
+            document.getElementById("next1").style.display = "inline-block";
+        }
+        if(n === 2){
+            document.getElementById("next2").style.display = "inline-block";
         }
     });
 }
