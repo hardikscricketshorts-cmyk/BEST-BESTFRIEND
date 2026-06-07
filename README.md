@@ -23,23 +23,8 @@ body {
     flex-direction: column;
     text-align: center;
     padding: 20px;
-    animation: fade 1s;
 }
 .active { display: flex; }
-
-@keyframes fade {
-    from {opacity:0; transform: scale(0.8);}
-    to {opacity:1; transform: scale(1);}
-}
-
-.intro {
-    font-size: 28px;
-    animation: glow 2s infinite alternate;
-}
-@keyframes glow {
-    from { text-shadow: 0 0 10px pink; }
-    to { text-shadow: 0 0 30px white; }
-}
 
 input, button {
     padding: 10px;
@@ -51,17 +36,8 @@ input, button {
 button {
     background: pink;
     cursor: pointer;
-}
-
-.shake {
-    animation: shake 0.3s;
-}
-@keyframes shake {
-    0%{transform:translateX(0)}
-    25%{transform:translateX(-5px)}
-    50%{transform:translateX(5px)}
-    75%{transform:translateX(-5px)}
-    100%{transform:translateX(0)}
+    position: relative;
+    z-index: 9999; /* 🔥 FORCE TOP */
 }
 
 .gift {
@@ -106,54 +82,6 @@ button {
     display: none;
     margin-top: 20px;
     max-width: 600px;
-    text-shadow: 0 0 10px white;
-}
-
-.big {
-    font-size: 26px;
-    animation: pulse 2s infinite;
-}
-@keyframes pulse {
-    0%{transform:scale(1)}
-    50%{transform:scale(1.05)}
-    100%{transform:scale(1)}
-}
-
-.float {
-    position: absolute;
-    bottom: -50px;
-    font-size: 20px;
-    animation: rise 10s linear infinite;
-}
-@keyframes rise {
-    to { transform: translateY(-120vh); opacity:0;}
-}
-
-.confetti {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: white;
-    animation: fall 2s linear forwards;
-}
-@keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-.sparkle {
-    position: fixed;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: fadeOut 1s forwards;
-}
-@keyframes fadeOut {
-    to {opacity:0; transform: scale(2);}
 }
 </style>
 </head>
@@ -165,8 +93,8 @@ button {
 </audio>
 
 <div class="page active" id="intro">
-    <div class="intro">You already know what this is… 💖</div>
-    <button onclick="start()">Start 💫</button>
+    <div>You already know what this is… 💖</div>
+    <button onclick="start()">Start</button>
 </div>
 
 <div class="page" id="page1">
@@ -182,6 +110,7 @@ button {
         <div class="ribbonH"></div>
     </div>
     <div class="message" id="msg1"></div>
+    <div id="btn1"></div> <!-- 🔥 button container -->
 </div>
 
 <div class="page" id="page3">
@@ -191,6 +120,7 @@ button {
         <div class="ribbonH"></div>
     </div>
     <div class="message" id="msg2"></div>
+    <div id="btn2"></div>
 </div>
 
 <div class="page" id="page4">
@@ -199,7 +129,7 @@ button {
         <div class="ribbonV"></div>
         <div class="ribbonH"></div>
     </div>
-    <div class="message big" id="msg3"></div>
+    <div class="message" id="msg3"></div>
 </div>
 
 <script>
@@ -214,16 +144,12 @@ function nextPage(id){
 }
 
 function checkPass(){
-    let p=document.getElementById("pass");
-    if(p.value==="1103"){
+    if(document.getElementById("pass").value==="1103"){
         nextPage("page2");
-    } else {
-        p.classList.add("shake");
-        setTimeout(()=>p.classList.remove("shake"),300);
     }
 }
 
-function typeText(el,text,callback,speed=25){
+function typeText(el,text,callback){
     let i=0;
     el.style.display="block";
     let int=setInterval(()=>{
@@ -233,18 +159,7 @@ function typeText(el,text,callback,speed=25){
             clearInterval(int);
             if(callback) callback();
         }
-    },speed);
-}
-
-function explode(){
-    for(let i=0;i<40;i++){
-        let c=document.createElement("div");
-        c.className="confetti";
-        c.style.left=Math.random()*100+"vw";
-        c.style.background=`hsl(${Math.random()*360},100%,70%)`;
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(),2000);
-    }
+    },25);
 }
 
 function openGift(n){
@@ -252,17 +167,8 @@ function openGift(n){
     gift.classList.add("open");
     gift.style.pointerEvents="none";
 
-    explode();
-
     let texts=[
-`Sarvadnya 🥹💝 
-
-From the past one year, you've been more than just a best friend to me — you've been my comfort, my happiness, and someone I truly cherish.  
-You're incredibly talented and intelligent, and honestly, one of the most amazing people I know.  
-The way you understand me, support me, and just exist in my life means more than I can ever properly explain.  
-You're not just my best friend, you're someone I hold very close to my heart.  
-I promise to always stand by you, protect our bond, and value you no matter what.  
-You mean a lot to me... more than words can say 😚🎀`,
+`Sarvadnya 🥹💝 ... (same text)`,
 
 `Sobt celebrate krayla milala nahi, tri a small wish🥹`,
 
@@ -279,29 +185,11 @@ You mean a lot to me... more than words can say 😚🎀`,
             btn.onclick=function(){
                 nextPage("page"+(n+1));
             };
-            el.appendChild(document.createElement("br"));
-            el.appendChild(btn);
+
+            document.getElementById("btn"+n).appendChild(btn); // 🔥 OUTSIDE message
         }
     });
 }
-
-setInterval(()=>{
-    let f=document.createElement("div");
-    f.className="float";
-    f.innerText=["💖","💗","💝","🎀"][Math.floor(Math.random()*4)];
-    f.style.left=Math.random()*100+"vw";
-    document.body.appendChild(f);
-    setTimeout(()=>f.remove(),10000);
-},500);
-
-document.addEventListener("mousemove",e=>{
-    let s=document.createElement("div");
-    s.className="sparkle";
-    s.style.left=e.clientX+"px";
-    s.style.top=e.clientY+"px";
-    document.body.appendChild(s);
-    setTimeout(()=>s.remove(),1000);
-});
 </script>
 
 </body>
