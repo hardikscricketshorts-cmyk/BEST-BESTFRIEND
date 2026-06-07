@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html><html>
 <head>
 <meta charset="UTF-8">
 <title>Best Friends Day 💖</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"><style>
@@ -12,18 +12,14 @@ body {
     overflow-x: hidden;
 }
 
-/* Hearts */
-.corner {
-    position: fixed;
-    font-size: 1.5rem;
-    opacity: 0.7;
-}
+/* hearts */
+.corner { position: fixed; font-size: 1.5rem; opacity: 0.7; }
 .tl { top: 10px; left: 10px; }
 .tr { top: 10px; right: 10px; }
 .bl { bottom: 10px; left: 10px; }
 .br { bottom: 10px; right: 10px; }
 
-/* Pages */
+/* pages */
 .page {
     display: none;
     min-height: 100vh;
@@ -32,28 +28,14 @@ body {
     align-items: center;
     flex-direction: column;
     text-align: center;
-    animation: fade 0.5s ease;
 }
 .active { display: flex; }
 
-@keyframes fade {
-    from {opacity: 0; transform: scale(0.95);}
-    to {opacity: 1; transform: scale(1);}
-}
+/* text */
+.main-text { font-size: 1.4rem; }
+.long-text { font-size: 0.85rem; line-height: 1.6; margin-top: 15px; }
 
-/* Text */
-.main-text {
-    font-size: 1.4rem;
-    animation: pop 0.5s ease;
-}
-
-.long-text {
-    font-size: 0.85rem;
-    line-height: 1.6;
-    margin-top: 15px;
-}
-
-/* Buttons */
+/* buttons */
 button {
     padding: 10px 20px;
     margin-top: 20px;
@@ -62,13 +44,9 @@ button {
     background: #ff66c4;
     color: #fff4a3;
     cursor: pointer;
-    transition: 0.3s;
-}
-button:hover {
-    transform: scale(1.1);
 }
 
-/* Options */
+/* options */
 .option {
     margin: 8px;
     padding: 10px 15px;
@@ -76,26 +54,9 @@ button:hover {
     background: rgba(255,255,255,0.15);
     display: inline-block;
     cursor: pointer;
-    transition: 0.3s;
-}
-.option:hover {
-    transform: scale(1.08);
 }
 
-/* Input */
-input {
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-}
-
-/* Pop animation */
-@keyframes pop {
-    from {transform: scale(0.8);}
-    to {transform: scale(1);}
-}
-
-/* Gift box */
+/* gift box */
 .gift-wrapper {
     position: relative;
     width: 120px;
@@ -128,28 +89,13 @@ input {
     transition: 0.6s;
 }
 
-.ribbon-v, .ribbon-h {
-    position: absolute;
-    background: white;
-}
-.ribbon-v {
-    width: 10px;
-    height: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.ribbon-h {
-    height: 10px;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-}
+.ribbon-v, .ribbon-h { position: absolute; background: white; }
+.ribbon-v { width: 10px; height: 100%; left: 50%; transform: translateX(-50%); }
+.ribbon-h { height: 10px; width: 100%; top: 50%; transform: translateY(-50%); }
 
-.open .box-lid {
-    transform: rotateX(120deg);
-}
+.open .box-lid { transform: rotateX(120deg); }
 
-/* Content box */
+/* content */
 .box-content {
     display: none;
     margin-top: 25px;
@@ -160,7 +106,43 @@ input {
     overflow-y: auto;
 }
 
-/* Confetti */
+/* 🎬 CINEMATIC VIDEO */
+.video-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease forwards;
+}
+
+.video-wrapper video {
+    width: 90%;
+    max-height: 80%;
+    border-radius: 12px;
+    transform: scale(0.7);
+    opacity: 0;
+    animation: zoomIn 1.2s ease forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes zoomIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* confetti */
 .confetti {
     position: fixed;
     width: 6px;
@@ -174,12 +156,10 @@ input {
         opacity: 0;
     }
 }
-</style></head><body><!-- hearts --><div class="corner tl">💖</div>
+</style></head><body><div class="corner tl">💖</div>
 <div class="corner tr">💗</div>
 <div class="corner bl">💝</div>
-<div class="corner br">🎀</div><audio id="music">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8e5c3a6e3.mp3">
-</audio><!-- PAGE 1 --><div class="page active" id="page1">
+<div class="corner br">🎀</div><!-- PAGE 1 --><div class="page active" id="page1">
     <div class="main-text">You already know what this is.</div>
     <button onclick="nextPage(2)">Next ➡</button>
 </div><!-- PAGE 2 --><div class="page" id="page2">
@@ -198,28 +178,30 @@ input {
     <input type="password" id="pass">
     <br>
     <button onclick="checkPass()">Enter</button>
-    <p id="error" style="color:#ffd6ec;"></p>
-</div><!-- PAGE 5 --><div class="page" id="page5"><div id="giftBox" class="gift-wrapper" onclick="openGift()">
+    <p id="error"></p>
+</div><!-- PAGE 5 (LETTER) --><div class="page" id="page5"><div id="giftBox" class="gift-wrapper" onclick="openGift()">
     <div class="box-lid"></div>
     <div class="box-base"></div>
     <div class="ribbon-v"></div>
     <div class="ribbon-h"></div>
+</div><div id="content" class="box-content">
+    <p>शब्दात व्यक्त नाही करू शकलो 🙏💗</p><div class="long-text">
+    Sarvadnya 🥹💝<br><br>
+    From the past one year...
+    You mean a lot to me 😚🎀
 </div>
 
-<div id="content" class="box-content">
-    <p>शब्दात व्यक्त नाही करू शकलो 🙏💗</p>
+<button onclick="nextPage(6)">Next ➡</button>
 
-    <div class="long-text">
-        Sarvadnya 🥹💝<br><br>
-        From the past one year, you've been more than just a best friend to me — you've been my comfort, my happiness, and someone I truly cherish.  
-        You're incredibly talented and intelligent, and honestly, one of the most amazing people I know.  
-        The way you understand me, support me, and just exist in my life means more than I can ever properly explain.  
-        You're not just my best friend, you're someone I hold very close to my heart.  
-        I promise to always stand by you, protect our bond, and value you no matter what.  
-        You mean a lot to me... more than words can say 😚🎀
-    </div>
-</div>
-
+</div></div><!-- PAGE 6 (VIDEO BOX) --><div class="page" id="page6"><div id="videoGift" class="gift-wrapper" onclick="openVideoGift()">
+    <div class="box-lid"></div>
+    <div class="box-base"></div>
+    <div class="ribbon-v"></div>
+    <div class="ribbon-h"></div>
+</div></div><!-- 🎬 CINEMATIC VIDEO SCREEN --><div id="videoScreen" class="video-wrapper">
+    <video id="myVideo" controls>
+        <source src="YOUR-VIDEO-LINK.mp4" type="video/mp4">
+    </video>
 </div><script>
 function nextPage(p){
     document.querySelectorAll(".page").forEach(el=>el.classList.remove("active"));
@@ -242,18 +224,16 @@ function openGift(){
     setTimeout(()=>{
         document.getElementById("content").style.display="block";
     },400);
+}
 
-    document.getElementById("music").play().catch(()=>{});
+function openVideoGift(){
+    let box=document.getElementById("videoGift");
+    box.classList.add("open");
 
-    for(let i=0;i<50;i++){
-        let c=document.createElement("div");
-        c.className="confetti";
-        c.style.left=Math.random()*100+"vw";
-        c.style.background="hsl("+Math.random()*360+",100%,70%)";
-        c.style.animationDuration=(1+Math.random())+"s";
-        document.body.appendChild(c);
-        setTimeout(()=>c.remove(),1500);
-    }
+    setTimeout(()=>{
+        document.getElementById("videoScreen").style.display="flex";
+        document.getElementById("myVideo").play();
+    },500);
 }
 </script></body>
 </html>
