@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>For You 💛</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -34,14 +34,9 @@ body {
 }
 
 /* Intro */
-.name {
-    font-size: 32px;
-    font-weight: 600;
-    animation: glow 2s infinite alternate;
-}
-@keyframes glow {
-    from { text-shadow: 0 0 10px pink; }
-    to { text-shadow: 0 0 25px white; }
+.intro {
+    font-size: 26px;
+    opacity: 0.9;
 }
 
 /* Input */
@@ -95,10 +90,24 @@ button {
     line-height: 1.6;
 }
 
+/* Chat style */
+.chat {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 15px;
+    max-width: 320px;
+    margin-top: 20px;
+}
+
 /* Final */
 .final {
     font-size: 24px;
+    opacity: 0.95;
     animation: glow 3s infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow: 0 0 5px #fff; }
+    to { text-shadow: 0 0 20px #fff; }
 }
 
 /* Particles */
@@ -119,18 +128,13 @@ button {
 
 <body>
 
-<audio id="bgmusic" loop>
+<audio id="music" loop>
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
-</audio>
-
-<audio id="voice">
-<source src="voice.mp3" type="audio/mp3">
 </audio>
 
 <!-- INTRO -->
 <div class="page active" id="intro">
-    <div class="name">Sarvadnya 💛</div>
-    <div>You already know what this is…</div>
+    <div class="intro">You already know what this is… 💛</div>
     <button onclick="start()">Continue</button>
 </div>
 
@@ -153,9 +157,9 @@ button {
 
 <!-- CHAT PAGE -->
 <div class="page" id="chatPage">
-    <div>
-        “Then also i'll ask 😝”<br><br>
-        “What is today's date?”<br><br>
+    <div class="chat">
+        "Then also i'll ask 😝"<br><br>
+        "What is today's date?"<br><br>
         👉 Best Friends Day 💛
     </div>
     <button onclick="next('p3')">Next</button>
@@ -179,33 +183,17 @@ button {
         <div class="ribbon h"></div>
     </div>
     <div class="message final" id="m3"></div>
-
-    <button onclick="playVoice()">🎙️ Play Voice Note</button>
 </div>
 
 <script>
 function start(){
-    document.getElementById("bgmusic").play();
+    document.getElementById("music").play();
     next("passPage");
 }
 
-/* ✅ FIXED NEXT FUNCTION */
 function next(id){
-    let pages = document.querySelectorAll(".page");
-
-    pages.forEach(p => {
-        p.classList.remove("active");
-        p.style.display = "none";
-    });
-
-    let nextPage = document.getElementById(id);
-
-    if(nextPage){
-        nextPage.style.display = "flex";
-        setTimeout(()=>{
-            nextPage.classList.add("active");
-        }, 10);
-    }
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
 }
 
 function checkPass(){
@@ -214,23 +202,20 @@ function checkPass(){
     } else alert("Wrong password 💔");
 }
 
-/* TYPEWRITER */
-function type(el,text,callback){
+/* Typewriter FIXED */
+function type(el,text){
     let i=0;
     el.style.display="block";
-    el.innerHTML="";
-
     let int=setInterval(()=>{
-        el.innerHTML += text.charAt(i);
-        i++;
-        if(i >= text.length){
+        if(i < text.length){
+            el.innerHTML += text[i];
+            i++;
+        } else {
             clearInterval(int);
-            if(callback) callback();
         }
     },25);
 }
 
-/* FLOW */
 function openGift(n){
     let texts=[
 `Sarvadnya 🥹💝 
@@ -251,24 +236,14 @@ You mean a lot to me... more than words can say 😚🎀`,
     gift.classList.add("open");
 
     let el=document.getElementById("m"+n);
+    el.innerHTML="";
+    type(el,texts[n-1]);
 
-    if(n === 1){
-        type(el, texts[0], () => {
-            setTimeout(()=> next("chatPage"), 1500);
-        });
+    /* FIXED DELAY */
+    if(n==1){
+        let delay = texts[n-1].length * 25;
+        setTimeout(()=>next("chatPage"), delay + 500);
     }
-    else if(n === 2){
-        type(el, texts[1], () => {
-            setTimeout(()=> next("finalPage"), 1500);
-        });
-    }
-    else if(n === 3){
-        type(el, texts[2]);
-    }
-}
-
-function playVoice(){
-    document.getElementById("voice").play();
 }
 
 /* Particles */
