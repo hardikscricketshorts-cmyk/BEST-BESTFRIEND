@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For You 💛</title>
+<title>For Sarvadnya 💛</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -15,7 +15,6 @@ body {
     overflow: hidden;
 }
 
-/* Pages */
 .page {
     display: none;
     height: 100vh;
@@ -24,7 +23,7 @@ body {
     flex-direction: column;
     text-align: center;
     padding: 20px;
-    animation: fade 0.8s ease;
+    animation: fade 1s;
 }
 .active { display: flex; }
 
@@ -33,18 +32,21 @@ body {
     to {opacity:1; transform: translateY(0);}
 }
 
-/* Intro */
-.intro {
-    font-size: 26px;
-    opacity: 0.9;
+.name {
+    font-size: 32px;
+    font-weight: 600;
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow: 0 0 10px pink; }
+    to { text-shadow: 0 0 25px white; }
 }
 
-/* Input */
 input, button {
     padding: 10px;
     border-radius: 25px;
     border: none;
-    margin-top: 12px;
+    margin-top: 10px;
 }
 
 button {
@@ -52,7 +54,6 @@ button {
     cursor: pointer;
 }
 
-/* Gift */
 .gift {
     width: 140px;
     height: 100px;
@@ -68,7 +69,7 @@ button {
     height: 35px;
     background: #c9184a;
     top: -35px;
-    transition: 0.6s ease;
+    transition: 0.6s;
 }
 
 .ribbon {
@@ -82,7 +83,6 @@ button {
     transform: translateY(-90px) rotate(-15deg);
 }
 
-/* Message */
 .message {
     display: none;
     max-width: 600px;
@@ -90,27 +90,11 @@ button {
     line-height: 1.6;
 }
 
-/* Chat style */
-.chat {
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 15px;
-    max-width: 320px;
-    margin-top: 20px;
-}
-
-/* Final */
 .final {
     font-size: 24px;
-    opacity: 0.95;
     animation: glow 3s infinite alternate;
 }
-@keyframes glow {
-    from { text-shadow: 0 0 5px #fff; }
-    to { text-shadow: 0 0 20px #fff; }
-}
 
-/* Particles */
 .particle {
     position: absolute;
     width: 6px;
@@ -128,13 +112,18 @@ button {
 
 <body>
 
-<audio id="music" loop>
+<audio id="bgmusic" loop>
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">
+</audio>
+
+<audio id="voice">
+<source src="voice.mp3" type="audio/mp3">
 </audio>
 
 <!-- INTRO -->
 <div class="page active" id="intro">
-    <div class="intro">You already know what this is… 💛</div>
+    <div class="name">Sarvadnya 💛</div>
+    <div>You already know what this is…</div>
     <button onclick="start()">Continue</button>
 </div>
 
@@ -157,9 +146,9 @@ button {
 
 <!-- CHAT PAGE -->
 <div class="page" id="chatPage">
-    <div class="chat">
-        "Then also i'll ask 😝"<br><br>
-        "What is today's date?"<br><br>
+    <div>
+        “Then also i'll ask 😝”<br><br>
+        “What is today's date?”<br><br>
         👉 Best Friends Day 💛
     </div>
     <button onclick="next('p3')">Next</button>
@@ -183,11 +172,13 @@ button {
         <div class="ribbon h"></div>
     </div>
     <div class="message final" id="m3"></div>
+
+    <button onclick="playVoice()">🎙️ Play Voice Note</button>
 </div>
 
 <script>
 function start(){
-    document.getElementById("music").play();
+    document.getElementById("bgmusic").play();
     next("passPage");
 }
 
@@ -202,17 +193,23 @@ function checkPass(){
     } else alert("Wrong password 💔");
 }
 
-/* Typewriter */
-function type(el,text){
+/* TYPEWRITER FIXED */
+function type(el,text,callback){
     let i=0;
     el.style.display="block";
+    el.innerHTML="";
+
     let int=setInterval(()=>{
-        el.innerHTML+=text[i];
+        el.innerHTML += text.charAt(i);
         i++;
-        if(i>=text.length) clearInterval(int);
+        if(i >= text.length){
+            clearInterval(int);
+            if(callback) callback();
+        }
     },25);
 }
 
+/* FLOW FIXED */
 function openGift(n){
     let texts=[
 `Sarvadnya 🥹💝 
@@ -233,12 +230,24 @@ You mean a lot to me... more than words can say 😚🎀`,
     gift.classList.add("open");
 
     let el=document.getElementById("m"+n);
-    el.innerHTML="";
-    type(el,texts[n-1]);
 
-    if(n==1){
-        setTimeout(()=>next("chatPage"),4000);
+    if(n === 1){
+        type(el, texts[0], () => {
+            setTimeout(()=> next("chatPage"), 1500);
+        });
     }
+    else if(n === 2){
+        type(el, texts[1], () => {
+            setTimeout(()=> next("finalPage"), 1500);
+        });
+    }
+    else if(n === 3){
+        type(el, texts[2]);
+    }
+}
+
+function playVoice(){
+    document.getElementById("voice").play();
 }
 
 /* Particles */
