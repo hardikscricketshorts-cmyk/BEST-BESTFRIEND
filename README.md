@@ -15,7 +15,6 @@ body {
     color: yellow;
 }
 
-/* Pages */
 .page {
     display: none;
     height: 100vh;
@@ -34,7 +33,6 @@ body {
     to {opacity:1; transform: scale(1);}
 }
 
-/* Intro */
 .intro {
     font-size: 28px;
     animation: glow 2s infinite alternate;
@@ -44,7 +42,6 @@ body {
     to { text-shadow: 0 0 30px white; }
 }
 
-/* Input */
 input, button {
     padding: 10px;
     border-radius: 20px;
@@ -57,7 +54,6 @@ button {
     cursor: pointer;
 }
 
-/* Shake on wrong password */
 .shake {
     animation: shake 0.3s;
 }
@@ -69,7 +65,6 @@ button {
     100%{transform:translateX(0)}
 }
 
-/* Gift */
 .gift {
     width: 150px;
     height: 120px;
@@ -108,7 +103,6 @@ button {
     transform: translateY(-120px) rotate(-25deg);
 }
 
-/* Message */
 .message {
     display: none;
     margin-top: 20px;
@@ -116,7 +110,6 @@ button {
     text-shadow: 0 0 10px white;
 }
 
-/* Final emotional */
 .big {
     font-size: 26px;
     animation: pulse 2s infinite;
@@ -127,7 +120,6 @@ button {
     100%{transform:scale(1)}
 }
 
-/* Hearts + bubbles */
 .float {
     position: absolute;
     bottom: -50px;
@@ -138,7 +130,6 @@ button {
     to { transform: translateY(-120vh); opacity:0;}
 }
 
-/* Confetti */
 .confetti {
     position: fixed;
     width: 8px;
@@ -153,7 +144,6 @@ button {
     }
 }
 
-/* Sparkle cursor */
 .sparkle {
     position: fixed;
     width: 6px;
@@ -171,25 +161,21 @@ button {
 
 <body>
 
-<!-- MUSIC -->
 <audio id="music" loop>
 <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
 
-<!-- INTRO -->
 <div class="page active" id="intro">
     <div class="intro">You already know what this is… 💖</div>
     <button onclick="start()">Start 💫</button>
 </div>
 
-<!-- PASSWORD -->
 <div class="page" id="page1">
     <h2>Enter Password 💝</h2>
     <input type="password" id="pass">
     <button onclick="checkPass()">Enter</button>
 </div>
 
-<!-- PAGE 2 -->
 <div class="page" id="page2">
     <div class="gift" onclick="openGift(1)">
         <div class="lid"></div>
@@ -199,7 +185,6 @@ button {
     <div class="message" id="msg1"></div>
 </div>
 
-<!-- PAGE 3 -->
 <div class="page" id="page3">
     <div class="gift" onclick="openGift(2)">
         <div class="lid"></div>
@@ -209,7 +194,6 @@ button {
     <div class="message" id="msg2"></div>
 </div>
 
-<!-- PAGE 4 -->
 <div class="page" id="page4">
     <div class="gift" onclick="openGift(3)">
         <div class="lid"></div>
@@ -240,18 +224,19 @@ function checkPass(){
     }
 }
 
-/* Typewriter */
-function typeText(el,text,speed=25){
+function typeText(el,text,speed=25,callback){
     let i=0;
     el.style.display="block";
     let int=setInterval(()=>{
         el.innerHTML+=text[i];
         i++;
-        if(i>=text.length) clearInterval(int);
+        if(i>=text.length){
+            clearInterval(int);
+            if(callback) callback();
+        }
     },speed);
 }
 
-/* Confetti explosion */
 function explode(){
     for(let i=0;i<40;i++){
         let c=document.createElement("div");
@@ -285,20 +270,18 @@ You mean a lot to me... more than words can say 😚🎀`,
 
     let el=document.getElementById("msg"+n);
     el.innerHTML="";
-    typeText(el,texts[n-1]);
 
-    if(n<3){
-        setTimeout(()=>{
+    typeText(el,texts[n-1],25,()=>{
+        if(n<3){
             let btn=document.createElement("button");
             btn.innerText="Next 💕";
             btn.onclick=()=>nextPage("page"+(n+1));
             el.appendChild(document.createElement("br"));
             el.appendChild(btn);
-        },2000);
-    }
+        }
+    });
 }
 
-/* Floating hearts */
 setInterval(()=>{
     let f=document.createElement("div");
     f.className="float";
@@ -308,7 +291,6 @@ setInterval(()=>{
     setTimeout(()=>f.remove(),10000);
 },500);
 
-/* Sparkle cursor */
 document.addEventListener("mousemove",e=>{
     let s=document.createElement("div");
     s.className="sparkle";
