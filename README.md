@@ -15,6 +15,7 @@ body {
     color: yellow;
 }
 
+/* Pages */
 .page {
     display: none;
     height: 100vh;
@@ -33,6 +34,7 @@ body {
     to {opacity:1; transform: scale(1);}
 }
 
+/* Intro */
 .intro {
     font-size: 28px;
     animation: glow 2s infinite alternate;
@@ -42,6 +44,7 @@ body {
     to { text-shadow: 0 0 30px white; }
 }
 
+/* Input */
 input, button {
     padding: 10px;
     border-radius: 20px;
@@ -54,6 +57,7 @@ button {
     cursor: pointer;
 }
 
+/* Shake on wrong password */
 .shake {
     animation: shake 0.3s;
 }
@@ -65,6 +69,7 @@ button {
     100%{transform:translateX(0)}
 }
 
+/* Gift */
 .gift {
     width: 150px;
     height: 120px;
@@ -103,6 +108,7 @@ button {
     transform: translateY(-120px) rotate(-25deg);
 }
 
+/* Message */
 .message {
     display: none;
     margin-top: 20px;
@@ -110,6 +116,7 @@ button {
     text-shadow: 0 0 10px white;
 }
 
+/* Final emotional */
 .big {
     font-size: 26px;
     animation: pulse 2s infinite;
@@ -120,6 +127,7 @@ button {
     100%{transform:scale(1)}
 }
 
+/* Hearts + bubbles */
 .float {
     position: absolute;
     bottom: -50px;
@@ -130,6 +138,7 @@ button {
     to { transform: translateY(-120vh); opacity:0;}
 }
 
+/* Confetti */
 .confetti {
     position: fixed;
     width: 8px;
@@ -144,6 +153,7 @@ button {
     }
 }
 
+/* Sparkle cursor */
 .sparkle {
     position: fixed;
     width: 6px;
@@ -224,7 +234,8 @@ function checkPass(){
     }
 }
 
-function typeText(el,text,speed=25,callback){
+/* UPDATED Typewriter with callback */
+function typeText(el,text,callback,speed=25){
     let i=0;
     el.style.display="block";
     let int=setInterval(()=>{
@@ -232,7 +243,7 @@ function typeText(el,text,speed=25,callback){
         i++;
         if(i>=text.length){
             clearInterval(int);
-            if(callback) callback();
+            if(callback) callback();  // 👈 triggers after typing
         }
     },speed);
 }
@@ -251,6 +262,8 @@ function explode(){
 function openGift(n){
     let gift=document.querySelectorAll(".gift")[n-1];
     gift.classList.add("open");
+    gift.style.pointerEvents="none"; // fix
+
     explode();
 
     let texts=[
@@ -271,7 +284,7 @@ You mean a lot to me... more than words can say 😚🎀`,
     let el=document.getElementById("msg"+n);
     el.innerHTML="";
 
-    typeText(el,texts[n-1],25,()=>{
+    typeText(el,texts[n-1], ()=>{
         if(n<3){
             let btn=document.createElement("button");
             btn.innerText="Next 💕";
